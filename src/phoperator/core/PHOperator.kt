@@ -24,7 +24,7 @@ class PHOperator:IOperator {
         fun <T : Any> unsubscribe(notif: String, sub:(T, String?) -> Unit){
             instance.unsubscribe(notif, sub)
         }
-        fun call(notif: String, data: Any?){
+        fun call(notif: String, data: Any? = null){
             instance.call(notif, data)
         }
     }
