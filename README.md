@@ -1,9 +1,10 @@
 # PHOperator Kotlin EventDispatcher
 This is light-weight event dispatcher based on KOTLIN 1.1.+
++ Add a PRIORITY to subscribe function
 
 You can subscribe on event by calling:
 ```kotlin
-PHOperator.subscribe(EVENT_CALL_ONE, ::nextFun)
+PHOperator.subscribe(EVENT_CALL_ONE, ::nextFun, 1)
 ```
 where:
 - EVENT_CALL_ONE - simple event type :String
@@ -36,7 +37,6 @@ PHOperator.unsubscribe(EVENT_CALL_ONE, ::nextFun)
 ### Todos
 
  - Write Performance Test
- - Add "Priority" of calling listeners
 
 License
 ----
