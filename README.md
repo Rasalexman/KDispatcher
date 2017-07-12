@@ -9,6 +9,7 @@ PHOperator.subscribe(EVENT_CALL_ONE, ::nextFun, 1)
 where:
 - EVENT_CALL_ONE - simple event type :String
 - nextFun - function listener for event like
+- 1 - the priority to sort calling functions
 
 
 ```kotlin
