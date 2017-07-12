@@ -10,6 +10,7 @@ typealias Subscriber<T> = (T, String?) -> Unit
 class PHOperator:IOperator {
 
     private val subscribers = HashMap<String, ArrayList<Subscriber<Any?>>>()
+    private val _priorityListeners by lazy {HashMap<Subscriber<Event>, Int>()}
 
     //-------- SINGLETON REALIZATION -----////
     private constructor()
@@ -34,15 +35,18 @@ class PHOperator:IOperator {
         return this.subscribers[notif!!] != null
     }
 
-    override fun <T : Any> subscribe(notif: String, sub: (T, String?) -> Unit) {
+    override fun <T : Any> subscribe(notif: String, sub: (T, String?) -> Unit, priority: Int = 0) {
         val ls = this.subscribers.getOrPut(notif!!) { ArrayList() }
+        _priorityListeners.getOrPut(listener as Subscriber<Event>) {priority}
         if (ls!!.indexOf(sub) < 0) {
             ls!!.add(sub as Subscriber<Any?>)
+            ls!!.sortBy({_priorityListeners.getOrPut(it) {0}})
         }
     }
 
     override fun <T : Any> unsubscribe(notif: String, sub:(T, String?) -> Unit) {
         val ls = this.subscribers[notif!!]
+        _priorityListeners.remove(sub)
         if (ls != null) {
             if (ls.remove(sub)) {
                 if (ls.isEmpty()) {
