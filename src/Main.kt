@@ -4,15 +4,15 @@ import phoperator.core.PHOperator
  * Created by Alex on 23.03.2017.
  */
 
-val EVENT_CALL_ONE:String = "CALL_NUMBER_TWO";
+val EVENT_CALL_ONE:String = "CALL_NUMBER_TWO"
 
 fun main(args : Array<String>) {
-    println("Hello, world!")
+    //println("Hello, world!")
 
     val test:MyTest = MyTest()
 
-    PHOperator.subscribe(EVENT_CALL_ONE, ::nextFun)
-    PHOperator.subscribe(EVENT_CALL_ONE, ::testFun)
+    PHOperator.subscribe(EVENT_CALL_ONE, ::nextFun, 2)
+    PHOperator.subscribe(EVENT_CALL_ONE, ::testFun, 1)
 
     PHOperator.call("TEST_CALL", "String")
     PHOperator.call(EVENT_CALL_ONE, test)
