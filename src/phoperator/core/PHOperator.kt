@@ -30,6 +30,12 @@ object KEventDispatcher:IOperator {
         }
     }
 
+    override fun unsubscribeAll(notif: String) {
+        if(hasSubscribers(notif)){
+            this.subscribers.remove(notif)
+        }
+    }
+
     override fun call(notif: String?, data: Any?) {
         val ls = this.subscribers[notif!!]
         ls?.forEach { it(data, notif) } ?: println("NO LISTENERS FOR EVENT '$notif'")
@@ -43,6 +49,7 @@ object KEventDispatcher:IOperator {
 interface IOperator {
     fun <T : Any> subscribe(notif:String, sub:(T, String?)->Unit, priority:Int = 0):Unit
     fun <T : Any> unsubscribe(notif:String, sub:(T, String?)->Unit):Unit
+    fun unsubscribeAll(notif:String):Unit
     fun call(notif:String?, data:Any?):Unit
     fun hasSubscribers(notif:String):Boolean
 }
