@@ -1,14 +1,14 @@
-# PHOperator Kotlin EventDispatcher
+# KDispatcher is a Kotlin EventDispatcher
 This is light-weight event dispatcher based on KOTLIN 1.1.+
-+ Add a PRIORITY to subscribe function
++ Added a PRIORITY to subscribe function
 
 You can subscribe on event by calling:
 ```kotlin
-PHOperator.subscribe(EVENT_CALL_ONE, ::nextFun, 1)
+KDispatcher.subscribe(EVENT_CALL_ONE, ::nextFun, 1)
 ```
 where:
 - EVENT_CALL_ONE - simple event type :String
-- nextFun - function listener for event like
+- nextFun - function listener for event
 - 1 - the priority to sort calling functions
 
 
@@ -27,12 +27,12 @@ fun nextFun(data:Any?, str:String? = null){
 Of course u can simpe call the event for all listeners by
 ```kotlin
 val test:MyTestClass = MyTestClass()
-PHOperator.call(EVENT_CALL_ONE, test)
+KDispatcher.call(EVENT_CALL_ONE, test)
 ```
 
 Don't forget to unsubscribe your listeners when u dont need it anymore.
 ```kotlin
-PHOperator.unsubscribe(EVENT_CALL_ONE, ::nextFun)
+KDispatcher.unsubscribe(EVENT_CALL_ONE, ::nextFun)
 ```
 
 ### Todos
