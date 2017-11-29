@@ -6,7 +6,8 @@ typealias Subscriber<T> = (T, String?) -> Unit
  * Created by a.minkin on 25.10.2017.
  */
 object KDispatcher: IDispatcher {
-    private val subscribers = HashMap<String, ArrayList<Subscriber<Any?>>>()
+
+    @Volatile private var subscribers:MutableMap<String, ArrayList<Subscriber<Any?>>> = mutableMapOf()
     private val _priorityListeners by lazy {HashMap<Subscriber<Any?>, Int>()}
 
     override fun <T : Any> subscribe(notif: String, sub: (T, String?) -> Unit, priority: Int) {
@@ -36,9 +37,12 @@ object KDispatcher: IDispatcher {
         }
     }
 
+    @Synchronized
     override fun call(notif: String?, data: Any?) {
-        val ls = subscribers[notif!!]
-        ls?.forEach { it(data, notif) } ?: println("NO LISTENERS FOR EVENT '$notif'")
+        synchronized(subscribers){
+            val ls = subscribers[notif!!]
+            ls?.forEach { it(data, notif) } ?: println("NO LISTENERS FOR EVENT '$notif'")
+        }
     }
 
     override fun hasSubscribers(notif: String): Boolean {
