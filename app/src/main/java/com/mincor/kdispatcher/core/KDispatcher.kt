@@ -45,15 +45,13 @@ object KDispatcher: IDispatcher {
         }
     }
 
-    override fun hasSubscribers(notif: String): Boolean {
-        return subscribers[notif] != null
-    }
+    override fun hasSubscribers(notif: String): Boolean = subscribers[notif] != null
 }
 
 interface IDispatcher {
-    fun <T : Any> subscribe(notif:String, sub:(T, String?)->Unit, priority:Int = 0):Unit
-    fun <T : Any> unsubscribe(notif:String, sub:(T, String?)->Unit):Unit
-    fun unsubscribeAll(notif:String):Unit
-    fun call(notif:String?, data:Any?):Unit
+    fun <T : Any> subscribe(notif:String, sub:(T, String?)->Unit, priority:Int = 0)
+    fun <T : Any> unsubscribe(notif:String, sub:(T, String?)->Unit)
+    fun unsubscribeAll(notif:String)
+    fun call(notif:String?, data:Any?)
     fun hasSubscribers(notif:String):Boolean
 }
