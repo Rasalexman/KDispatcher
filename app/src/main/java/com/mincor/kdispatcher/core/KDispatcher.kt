@@ -1,4 +1,4 @@
-package ru.fortgroup.dpru.utils
+package com.mincor.kdispatcher.core
 
 typealias Subscriber<T> = (T, String?) -> Unit
 
