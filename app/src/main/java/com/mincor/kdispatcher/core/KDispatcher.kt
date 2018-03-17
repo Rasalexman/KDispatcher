@@ -37,7 +37,6 @@ object KDispatcher : IDispatcher {
         }
     }
 
-    @Synchronized
     override fun call(notif: String?, data: Any?) {
         synchronized(subscribers) {
             val ls = subscribers[notif!!]
