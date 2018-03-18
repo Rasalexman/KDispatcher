@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KDispatcher.iml" filepath="$PROJECT_DIR$/KDispatcher.iml" />
-      <module fileurl="file://$PROJECT_DIR$/KDispatcher.iml" filepath="$PROJECT_DIR$/KDispatcher.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kdispatcher/kdispatcher.iml" filepath="$PROJECT_DIR$/kdispatcher/kdispatcher.iml" />
     </modules>
   </component>
 </project>

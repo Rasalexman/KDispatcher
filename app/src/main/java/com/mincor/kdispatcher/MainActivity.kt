@@ -2,7 +2,7 @@ package com.mincor.kdispatcher
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.mincor.kdispatcher.core.KDispatcher
+import com.rasalexman.kdispatcher.KDispatcher
 
 class MainActivity : AppCompatActivity() {
 
