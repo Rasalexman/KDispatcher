@@ -1,5 +1,5 @@
 # KDispatcher is a Kotlin EventDispatcher
-This is light-weight event dispatcher based on KOTLIN 1.1.+
+This is light-weight event dispatcher based on KOTLIN
 + Added a PRIORITY to subscribe function
 
 You can subscribe on event by calling:
@@ -35,9 +35,9 @@ Don't forget to unsubscribe your listeners when u dont need it anymore.
 KDispatcher.unsubscribe(EVENT_CALL_ONE, ::nextFun)
 ```
 
-### Todos
-
- - Write Performance Test
+# TreadSafe
+# Simple
+# Usefull
 
 License
 ----
