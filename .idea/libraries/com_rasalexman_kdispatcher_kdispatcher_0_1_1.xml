@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.rasalexman.kdispatcher:kdispatcher-0.1.1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/kdispatcher-0.1.1.aar/6644fe5ae1570bc29bd344a8fc736ba6/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/kdispatcher-0.1.1.aar/6644fe5ae1570bc29bd344a8fc736ba6/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.rasalexman.kdispatcher/kdispatcher/0.1.1/5640022341a1049e6ea76499073f364c0e9fdff7/kdispatcher-0.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

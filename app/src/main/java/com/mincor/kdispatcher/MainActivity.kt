@@ -6,9 +6,12 @@ import com.rasalexman.kdispatcher.KDispatcher
 
 class MainActivity : AppCompatActivity() {
 
-    private val EVENT_CALL_ONE: String = "CALL_NUMBER_TWO"
-    private val callbackOne = this::nextFun
-    private val callbackTwo = this::testFun
+    private val EVENT_CALL_ONE: String = "EVENT_CALL_ONE"
+    private val EVENT_CALL_TWO: String = "EVENT_CALL_TWO"
+
+    private val eventListenerOne = this::eventOneHandler
+    private val eventListenerTwo = this::eventTwoHandler
+    private val eventListenerThree = this::eventThreeHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,50 +20,45 @@ class MainActivity : AppCompatActivity() {
 
         scopeOperation(test)
 
-        KDispatcher.call("TEST_CALL", "String")
-        KDispatcher.call(EVENT_CALL_ONE, test)
+        KDispatcher.call(EVENT_CALL_ONE, "FIRST CALL FROM KDISPATCHER")
+        KDispatcher.call(EVENT_CALL_TWO, test)
 
-        KDispatcher.unsubscribe(EVENT_CALL_ONE, callbackOne)
-        KDispatcher.call(EVENT_CALL_ONE, test)
+        KDispatcher.unsubscribe(EVENT_CALL_ONE, eventListenerOne)
+        KDispatcher.unsubscribe(EVENT_CALL_TWO, eventListenerThree)
+
+        KDispatcher.call(EVENT_CALL_ONE, "SECONT CALL FROM KDISPATCHER")
+        KDispatcher.call(EVENT_CALL_TWO, test)
+
         KDispatcher.unsubscribeAll(EVENT_CALL_ONE)
-        KDispatcher.call(EVENT_CALL_ONE, test)
+        KDispatcher.call(EVENT_CALL_ONE, "THIRD CALL FROM KDISPATCHER")
     }
 
     private fun scopeOperation(test:MyTest){
-        KDispatcher.subscribe(EVENT_CALL_ONE, callbackOne, 2)
-        KDispatcher.subscribe(EVENT_CALL_ONE, callbackTwo, 1)
-        KDispatcher.subscribe(EVENT_CALL_ONE, test::testOne, 3)
+        KDispatcher.subscribe<String>(EVENT_CALL_ONE, eventListenerOne, 1)
+        KDispatcher.subscribe(EVENT_CALL_ONE, eventListenerTwo, 2)
+
+        KDispatcher.subscribe<MyTest>(EVENT_CALL_TWO, eventListenerThree, 1)
+        KDispatcher.subscribe(EVENT_CALL_TWO, test::eventFromObjectHandler, 2)
     }
 
-    fun testFun(data: Any?, str: String? = null) {
-        println("testFun INVOKED With EVENT $str")
+
+    ////------- EVENT HANDLERS ------////
+    fun eventOneHandler(data: String, str: String? = null) {
+       println("eventOneHandler MY TEST IS COMING event = $str AND data = $data")
     }
 
-    fun nextFun(data: Any?, str: String? = null) {
-        when (data) {
-            is MyTest -> println("nextFun MY TEST IS COMING $str ${data.testOne(data, str)}")
-        }
+    fun eventTwoHandler(data: String, str: String? = null) {
+        println("eventTwoHandler MY TEST IS COMING event = $str AND data = $data")
     }
 
-    fun testOne(data: Any?, str: String? = null): Unit {
-        println("testOne FROM MY CLASS $data")
-    }
-
-    fun testTwo(e: Any?) {
-        println("testTwo FROM MY CLASS $e")
+    fun eventThreeHandler(data: MyTest, str: String? = null) {
+        println("eventThreeHandler INVOKED With EVENT $str data is MyTest = $data")
     }
 
     inner class MyTest {
-        init {
 
-        }
-
-        fun testOne(data: Any?, str: String? = null): Unit {
-            println("testOne FROM MyTest CLASS $data")
-        }
-
-        fun testTwo(e: Any?) {
-            println("testTwo FROM MY CLASS $e")
+        fun eventFromObjectHandler(data: Any?, str: String? = null) {
+            println("MyTest::eventFromObjectHandler FROM MyTest CLASS $data")
         }
     }
 }
