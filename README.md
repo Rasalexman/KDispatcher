@@ -50,7 +50,7 @@ Maven:
 </dependency>
 ```
 
-- TreadSafe
+- ThreadSafe
 - Simple
 - Usefull
 
