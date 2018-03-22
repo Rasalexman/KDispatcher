@@ -4,12 +4,15 @@ This is light-weight event dispatcher based on KOTLIN
 
 You can subscribe on event by calling:
 ```kotlin
-KDispatcher.subscribe(EVENT_CALL_ONE, ::nextFun, 1)
+val eventListener = ::eventHandler
+val EVENT_CALL_ONE = "simple_event_name"
+val priority = 1
+KDispatcher.subscribe(EVENT_CALL_ONE, eventListener, priority)
 ```
 where:
 - EVENT_CALL_ONE - simple event type :String
-- nextFun - function listener for event
-- 1 - the priority to sort calling functions
+- eventListener - function listener for event
+- priority - the priority to sort calling functions
 
 
 ```kotlin
@@ -18,7 +21,7 @@ where:
 * str:String? = null - current event type
 * cause u may have more then one EVENT_TYPE for current event listener
 */
-fun nextFun(data:Any?, str:String? = null){
+fun eventHandler(data:Any?, str:String? = null){
   when(str){
       EVENT_CALL_ONE -> println("FIRST EVENT")
   }
@@ -32,7 +35,7 @@ KDispatcher.call(EVENT_CALL_ONE, test)
 
 Don't forget to unsubscribe your listeners when u dont need it anymore.
 ```kotlin
-KDispatcher.unsubscribe(EVENT_CALL_ONE, ::nextFun)
+KDispatcher.unsubscribe(EVENT_CALL_ONE, eventListener)
 ```
 
 Gradle: 
