@@ -4,8 +4,8 @@ This is light-weight event dispatcher based on KOTLIN
 
 You can subscribe on event by calling:
 ```kotlin
-val eventListener = ::eventHandler
 val EVENT_CALL_ONE = "simple_event_name"
+val eventListener = ::eventHandler
 val priority = 1
 KDispatcher.subscribe(EVENT_CALL_ONE, eventListener, priority)
 ```
