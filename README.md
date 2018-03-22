@@ -35,9 +35,24 @@ Don't forget to unsubscribe your listeners when u dont need it anymore.
 KDispatcher.unsubscribe(EVENT_CALL_ONE, ::nextFun)
 ```
 
-# TreadSafe
-# Simple
-# Usefull
+Gradle: 
+```
+implementation 'com.rasalexman.kdispatcher:kdispatcher:0.1.0'
+```
+
+Maven:
+```
+<dependency>
+  <groupId>com.rasalexman.kdispatcher</groupId>
+  <artifactId>kdispatcher</artifactId>
+  <version>0.1.0</version>
+  <type>pom</type>
+</dependency>
+```
+
+- TreadSafe
+- Simple
+- Usefull
 
 License
 ----
