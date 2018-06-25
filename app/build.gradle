@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.mincor.kdispatcher"
         minSdkVersion 14
-        targetSdkVersion 27
-        versionCode 100001
-        versionName "1.0.1"
+        targetSdkVersion 28
+        versionCode 10003
+        versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,10 +34,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    implementation 'com.rasalexman.kdispatcher:kdispatcher:0.1.1'
+    //implementation project(':kdispatcher')//implementation project()
+
+    implementation 'com.rasalexman.kdispatcher:kdispatcher:0.1.2'
 }

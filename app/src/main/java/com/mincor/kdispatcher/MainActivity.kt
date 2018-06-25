@@ -1,10 +1,10 @@
 package com.mincor.kdispatcher
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.rasalexman.kdispatcher.KDispatcher
+import android.support.v7.app.AppCompatActivity
+import com.rasalexman.kdispatcher.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IKDispatcher {
 
     private val EVENT_CALL_ONE: String = "EVENT_CALL_ONE"
     private val EVENT_CALL_TWO: String = "EVENT_CALL_TWO"
@@ -12,33 +12,52 @@ class MainActivity : AppCompatActivity() {
     private val eventListenerOne = this::eventOneHandler
     private val eventListenerTwo = this::eventTwoHandler
     private val eventListenerThree = this::eventThreeHandler
+    private val eventListenerFour = this::eventFourHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val test = MyTest()
 
+        subscribe(EVENT_CALL_ONE, 1, eventListenerOne)
+
         scopeOperation(test)
 
-        KDispatcher.call(EVENT_CALL_ONE, "FIRST CALL FROM KDISPATCHER")
-        KDispatcher.call(EVENT_CALL_TWO, test)
+        call(EVENT_CALL_ONE, "FIRST CALL FROM KDISPATCHER")
+        call(EVENT_CALL_TWO, test)
 
-        KDispatcher.unsubscribe(EVENT_CALL_ONE, eventListenerOne)
-        KDispatcher.unsubscribe(EVENT_CALL_TWO, eventListenerThree)
+        unsubscribe(EVENT_CALL_ONE, eventListenerOne)
+        unsubscribe(EVENT_CALL_TWO, eventListenerThree)
 
-        KDispatcher.call(EVENT_CALL_ONE, "SECONT CALL FROM KDISPATCHER")
-        KDispatcher.call(EVENT_CALL_TWO, test)
+        call(EVENT_CALL_ONE, "SECONT CALL FROM KDISPATCHER")
+        call(EVENT_CALL_TWO, test)
 
-        KDispatcher.unsubscribeAll(EVENT_CALL_ONE)
-        KDispatcher.call(EVENT_CALL_ONE, "THIRD CALL FROM KDISPATCHER")
+        unsubscribeAll(EVENT_CALL_ONE)
+        call(EVENT_CALL_ONE, "THIRD CALL FROM KDISPATCHER")
     }
 
-    private fun scopeOperation(test:MyTest){
-        KDispatcher.subscribe<String>(EVENT_CALL_ONE, eventListenerOne, 1)
-        KDispatcher.subscribe(EVENT_CALL_ONE, eventListenerTwo, 2)
+    private fun scopeOperation(test:MyTest) {
+        subscribe(EVENT_CALL_ONE, 3, eventListenerOne)
+        subscribe(EVENT_CALL_ONE, 1, eventListenerTwo)
+        subscribe(EVENT_CALL_ONE, 2, eventListenerFour)
 
-        KDispatcher.subscribe<MyTest>(EVENT_CALL_TWO, eventListenerThree, 1)
-        KDispatcher.subscribe(EVENT_CALL_TWO, test::eventFromObjectHandler, 2)
+        subscribe(EVENT_CALL_TWO, 2, eventListenerThree)
+        subscribe(EVENT_CALL_TWO, 1, test::eventFromObjectHandler)
+
+        /**
+         * But you can simple use inner lambda function to handler notification.
+         * So as u hasn't a reference to ISubscriber handler function, when you call
+         * `usubscribe(String)` you will delete all references ISubscriber-listener
+         */
+        val eventName = "LAMBDA_EVENT"
+        subscribe<String>(eventName) { data, event->
+            println("LAMBDA_EVENT HAS FIRED with event name $data")
+            unsubscribe(event)
+        }
+
+        call(eventName, "FIRST CALL CUSTOM LABDA EVENT")
+        // there is no event calling will be fired
+        call(eventName, "SECOND HELLO FROM EVENT")
     }
 
 
@@ -49,6 +68,10 @@ class MainActivity : AppCompatActivity() {
 
     fun eventTwoHandler(data: String, str: String? = null) {
         println("eventTwoHandler MY TEST IS COMING event = $str AND data = $data")
+    }
+
+    fun eventFourHandler(data: String, str: String? = null) {
+        println("eventFourHandler MY TEST IS COMING event = $str AND data = $data")
     }
 
     fun eventThreeHandler(data: MyTest, str: String? = null) {
