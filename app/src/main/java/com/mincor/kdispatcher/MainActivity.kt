@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
 
         val test = MyTest()
 
-        subscribe(EVENT_CALL_ONE, 1, eventListenerOne)
-
         scopeOperation(test)
 
         call(EVENT_CALL_ONE, "FIRST CALL FROM KDISPATCHER")
