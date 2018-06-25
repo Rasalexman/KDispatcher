@@ -18,9 +18,9 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
         super.onCreate(savedInstanceState)
 
         val test = MyTest()
-
+        // set event listeners for call
         scopeOperation(test)
-
+        // call event with data
         call(EVENT_CALL_ONE, "FIRST CALL FROM KDISPATCHER")
         call(EVENT_CALL_TWO, test)
 
