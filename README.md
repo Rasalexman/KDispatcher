@@ -53,10 +53,11 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
     }
     
     private fun scopeOperation() {
+        // subscribe event to this handlers
         subscribe(EVENT_CALL_ONE, 3, eventListenerOne)
         subscribe(EVENT_CALL_ONE, 1, eventListenerTwo)
         subscribe(EVENT_CALL_ONE, 2, eventListenerFour)
-        
+        // call event
         call(EVENT_CALL_ONE, "FIRST CALL FROM KDISPATCHER")
         
         /**
@@ -71,17 +72,6 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
         }
         
         call(eventName, "FIRST CALL CUSTOM LABDA EVENT")
-    }
-    
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val test = MyTest()
-        // set event listeners for call
-        scopeOperation(test)
-        // call event with data
-        call(EVENT_CALL_ONE, "FIRST CALL FROM KDISPATCHER")
-        
     }
     
     fun eventOneHandler(data: String, str: String? = null) {
