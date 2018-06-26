@@ -3,6 +3,7 @@
 
 This is light-weight event dispatcher based on KOTLIN
 + Added a PRIORITY to subscribe function
++ Inline function Included
 
 You can subscribe on event by calling:
 ```kotlin
