@@ -41,7 +41,7 @@ Don't forget to unsubscribe your listeners when u dont need it anymore.
 KDispatcher.unsubscribe(EVENT_CALL_ONE, eventListener)
 ```
 
-Sinse version 0.1.2 you can use inline functions of KDispatcher. All you need to do is implement `IKDispatcher` interface. Also you can use single lambda functions like (T, String) -> Unit
+Sinse version 0.1.2 you can use inline functions of KDispatcher. All you need to do is implement `IKDispatcher` interface. Also you can use single lambda functions like (T, String) -> Unit as event handlers
 ```kotlin
 class MainActivity : AppCompatActivity(), IKDispatcher {
 
