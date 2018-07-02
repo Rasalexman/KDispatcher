@@ -95,7 +95,7 @@ Maven:
   <type>pom</type>
 </dependency>
 ```
-![alt text](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion)
+
 - ThreadSafe
 - Simple
 - Usefull
