@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
 
 Gradle: 
 ```
-implementation 'com.rasalexman.kdispatcher:kdispatcher:0.1.2'
+implementation 'com.rasalexman.kdispatcher:kdispatcher:0.1.3'![alt text](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion)
 ```
 
 Maven:
