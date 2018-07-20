@@ -47,6 +47,7 @@ Sinse version 0.1.2 you can use extension and inline functions of KDispatcher. A
 class MainActivity : AppCompatActivity(), IKDispatcher {
 
     private val eventListenerOne = this::eventOneHandler
+    //...
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +57,8 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
     private fun scopeOperation() {
         // subscribe event to this handlers
         subscribe(EVENT_CALL_ONE, 3, eventListenerOne)
-        subscribe(EVENT_CALL_ONE, 1, eventListenerTwo)
-        subscribe(EVENT_CALL_ONE, 2, eventListenerFour)
+        subscribe(EVENT_CALL_ONE, 1, ::eventListenerTwo)
+        subscribe(EVENT_CALL_ONE, 2, MyClass::eventListenerFour)
         // call event
         call(EVENT_CALL_ONE, "FIRST CALL FROM KDISPATCHER")
         
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
          */
         val eventName = "LAMBDA_EVENT"
         subscribe<String>(eventName) { notification ->
-            println("LAMBDA_EVENT HAS FIRED with event name $notification.data")
+            println("LAMBDA_EVENT HAS FIRED with event name ${notification.eventName} and data ${notification.data}")
             unsubscribe(notification.eventName)
         }
         
