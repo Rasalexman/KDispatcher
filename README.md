@@ -2,8 +2,8 @@
 [ ![Download](https://api.bintray.com/packages/sphc/KDispatcher/kdispatcher/images/download.svg) ](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion)
 
 This is light-weight event dispatcher based on KOTLIN
-+ Added a PRIORITY to subscribe function
-+ Inline function Included
+* PRIORITY to subscribe function
+* Inline function Included
 
 You can subscribe on event by calling:
 ```kotlin
@@ -20,12 +20,13 @@ where:
 
 ```kotlin
 /**
-* data:Any? - can be any type of data
-* str:String? = null - current event type
+* notif:Notification<T:Any> - event holder object that store
+* data:T? = null - can be any type of data
+* eventName:String? = null - current event type
 * cause u may have more then one EVENT_TYPE for current event listener
 */
-fun eventHandler(data:Any?, str:String? = null){
-  when(str){
+fun eventHandler(notif:Notification<Any>){
+  when(notif.eventName){
       EVENT_CALL_ONE -> println("FIRST EVENT")
   }
 }
@@ -41,7 +42,7 @@ Don't forget to unsubscribe your listeners when u dont need it anymore.
 KDispatcher.unsubscribe(EVENT_CALL_ONE, eventListener)
 ```
 
-Sinse version 0.1.2 you can use inline functions of KDispatcher. All you need to do is implement `IKDispatcher` interface. Also you can use single lambda functions like (T, String) -> Unit as event handlers
+Sinse version 0.1.2 you can use extension and inline functions of KDispatcher. All you need to do is implement `IKDispatcher` interface. Also you can use single lambda functions like (Notification<T:Any>) -> Unit as event handlers
 ```kotlin
 class MainActivity : AppCompatActivity(), IKDispatcher {
 
@@ -66,16 +67,16 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
          * `usubscribe(String)` you will delete all references ISubscriber-listener
          */
         val eventName = "LAMBDA_EVENT"
-        subscribe<String>(eventName) { data, event->
-            println("LAMBDA_EVENT HAS FIRED with event name $data")
-            unsubscribe(event)
+        subscribe<String>(eventName) { notification ->
+            println("LAMBDA_EVENT HAS FIRED with event name $notification.data")
+            unsubscribe(notification.eventName)
         }
         
         call(eventName, "FIRST CALL CUSTOM LABDA EVENT")
     }
     
-    fun eventOneHandler(data: String, str: String? = null) {
-       println("eventOneHandler MY TEST IS COMING event = $str AND data = $data")
+    fun eventOneHandler(notification:Notification<Any>) {
+       println("eventOneHandler MY TEST IS COMING event = ${notification.eventName} AND data = ${notification.data}")
     }
 
 }
