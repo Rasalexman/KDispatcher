@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
         unsubscribe(EVENT_CALL_ONE, eventListenerOne)
         unsubscribe(EVENT_CALL_TWO, eventListenerThree)
 
-        call(EVENT_CALL_ONE, "SECONT CALL FROM KDISPATCHER")
+        call(EVENT_CALL_ONE, "SECOND CALL FROM KDISPATCHER")
         call(EVENT_CALL_TWO, test)
 
         unsubscribeAll(EVENT_CALL_ONE)
@@ -48,9 +48,9 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
          * `usubscribe(String)` you will delete all references ISubscriber-listener
          */
         val eventName = "LAMBDA_EVENT"
-        subscribe<String>(eventName) { data, event->
-            println("LAMBDA_EVENT HAS FIRED with event name $data")
-            unsubscribe(event)
+        subscribe<Any>(eventName) {
+            println("LAMBDA_EVENT HAS FIRED with event name ${it.data}")
+            unsubscribe(it.eventName)
         }
 
         call(eventName, "FIRST CALL CUSTOM LABDA EVENT")
@@ -60,26 +60,26 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
 
 
     ////------- EVENT HANDLERS ------////
-    fun eventOneHandler(data: String, str: String? = null) {
-       println("eventOneHandler MY TEST IS COMING event = $str AND data = $data")
+    fun eventOneHandler(notification:Notification<Any>) {
+       println("eventOneHandler MY TEST IS COMING event = ${notification.data} AND data = ${notification.eventName}")
     }
 
-    fun eventTwoHandler(data: String, str: String? = null) {
-        println("eventTwoHandler MY TEST IS COMING event = $str AND data = $data")
+    fun eventTwoHandler(notification:Notification<Any>) {
+        println("eventTwoHandler MY TEST IS COMING event = ${notification.data} AND data = ${notification.eventName}")
     }
 
-    fun eventFourHandler(data: String, str: String? = null) {
-        println("eventFourHandler MY TEST IS COMING event = $str AND data = $data")
+    fun eventFourHandler(notification:Notification<Any>) {
+        println("eventFourHandler MY TEST IS COMING event = ${notification.data} AND data = ${notification.eventName}")
     }
 
-    fun eventThreeHandler(data: MyTest, str: String? = null) {
-        println("eventThreeHandler INVOKED With EVENT $str data is MyTest = $data")
+    fun eventThreeHandler(notification:Notification<Any>) {
+        println("eventThreeHandler INVOKED With EVENT ${notification.data} AND data = ${notification.eventName}")
     }
 
     inner class MyTest {
 
-        fun eventFromObjectHandler(data: Any?, str: String? = null) {
-            println("MyTest::eventFromObjectHandler FROM MyTest CLASS $data")
+        fun eventFromObjectHandler(notification: Notification<Any>) {
+            println("MyTest::eventFromObjectHandler FROM MyTest CLASS ${notification.data} AND data = ${notification.eventName}")
         }
     }
 }
