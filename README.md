@@ -74,6 +74,19 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
         }
         
         call(eventName, "FIRST CALL CUSTOM LABDA EVENT")
+        
+        /**
+        * Since version 0.1.7 you can subscribe by scope of events by a single callback
+        **/
+        subscribeList<Any>(listOf("notif_one", "notif_two")) {
+            when(it.eventName) {
+                "notif_one" -> Toast.makeText(this, "This is notif_one", Toast.LENGTH_SHORT).show()
+                "notif_two" -> Toast.makeText(this, "This is notif_two", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        call("notif_one")
+        call("notif_two")
     }
     
     fun eventOneHandler(notification:Notification<Any>) {
