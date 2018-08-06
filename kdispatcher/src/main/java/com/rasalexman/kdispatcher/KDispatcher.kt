@@ -116,6 +116,15 @@ inline fun <reified T : Any> IKDispatcher.subscribe(notif: String, priority: Int
 }
 
 /**
+ * Subscribe a list of notifications to a single callback function
+ */
+inline fun <reified T : Any> IKDispatcher.subscribeList(notifes:List<String>, priority: Int? = null, noinline sub: Subscriber<T>) {
+    notifes.forEach { notif->
+        KDispatcher.subscribe(notif, sub, priority)
+    }
+}
+
+/**
  * Check if given event name has any handlers
  *
  * @param notif
