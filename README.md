@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
         
         /**
         * Since version 0.1.7 you can subscribe by scope of events by a single callback
-        **/
+        */
         subscribeList<Any>(listOf("notif_one", "notif_two")) {
             when(it.eventName) {
                 "notif_one" -> Toast.makeText(this, "This is notif_one", Toast.LENGTH_SHORT).show()
