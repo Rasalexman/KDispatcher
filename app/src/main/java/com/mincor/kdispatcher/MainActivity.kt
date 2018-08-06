@@ -2,6 +2,7 @@ package com.mincor.kdispatcher
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.rasalexman.kdispatcher.*
 
 class MainActivity : AppCompatActivity(), IKDispatcher {
@@ -53,9 +54,19 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
             unsubscribe(it.eventName)
         }
 
-        call(eventName, "FIRST CALL CUSTOM LABDA EVENT")
+        call(eventName, "FIRST CALL CUSTOM LAMBDA EVENT")
         // there is no event calling will be fired
         call(eventName, "SECOND HELLO FROM EVENT")
+
+        subscribeList<Any>(listOf("notif_one", "notif_two")) {
+            when(it.eventName) {
+                "notif_one" -> Toast.makeText(this, "This is notif_one", Toast.LENGTH_SHORT).show()
+                "notif_two" -> Toast.makeText(this, "This is notif_two", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        call("notif_one")
+        call("notif_two")
     }
 
 
