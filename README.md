@@ -2,7 +2,7 @@
 [ ![Download](https://api.bintray.com/packages/sphc/KDispatcher/kdispatcher/images/download.svg) ](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion)
 
 This is light-weight event dispatcher based on KOTLIN
-* PRIORITY to subscribe function
+* `priority: Int? = null` to subscribe function for sorting
 * Inline function Included
 
 You can subscribe on event by calling:
