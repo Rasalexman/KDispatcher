@@ -36,12 +36,12 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
     }
 
     private fun scopeOperation(test:MyTest) {
-        subscribe(EVENT_CALL_ONE, 3, eventListenerOne)
-        subscribe(EVENT_CALL_ONE, 1, eventListenerTwo)
-        subscribe(EVENT_CALL_ONE, 2, eventListenerFour)
+        subscribe(EVENT_CALL_ONE, eventListenerOne, 3)
+        subscribe(EVENT_CALL_ONE, eventListenerTwo, 2)
+        subscribe(EVENT_CALL_ONE, eventListenerFour, 1)
 
-        subscribe(EVENT_CALL_TWO, 2, eventListenerThree)
-        subscribe(EVENT_CALL_TWO, 1, test::eventFromObjectHandler)
+        subscribe(EVENT_CALL_TWO, eventListenerThree, 2)
+        subscribe(EVENT_CALL_TWO, test::eventFromObjectHandler, 1)
 
         /**
          * But you can simple use inner lambda function to handler notification.
@@ -58,6 +58,9 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
         // there is no event calling will be fired
         call(eventName, "SECOND HELLO FROM EVENT")
 
+        /**
+         * Since version
+         */
         subscribeList<Any>(listOf("notif_one", "notif_two")) {
             when(it.eventName) {
                 "notif_one" -> Toast.makeText(this, "This is notif_one", Toast.LENGTH_SHORT).show()
