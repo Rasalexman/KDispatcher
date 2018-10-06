@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
     
     private fun scopeOperation() {
         // subscribe event to this handlers
-        subscribe(EVENT_CALL_ONE, 3, eventListenerOne)
-        subscribe(EVENT_CALL_ONE, 1, ::eventListenerTwo)
-        subscribe(EVENT_CALL_ONE, 2, MyClass::eventListenerFour)
+        subscribe(EVENT_CALL_ONE, eventListenerOne, 3)
+        subscribe(EVENT_CALL_ONE, ::eventListenerTwo, 1)
+        subscribe(EVENT_CALL_ONE, MyClass::eventListenerFour, 2)
         // call event
         call(EVENT_CALL_ONE, "FIRST CALL FROM KDISPATCHER")
         
