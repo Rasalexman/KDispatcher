@@ -1,3 +1,18 @@
+// Copyright (c) 2018 Aleksandr Minkin (sphc@yandex.ru)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+// and associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+// and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+// subject to the following conditions:
+// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
+// THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
 package com.rasalexman.kdispatcher
 
 import android.util.ArrayMap
@@ -54,6 +69,12 @@ inline fun <reified T : Any> IDispatcher.subscribe(notificationName: String, noi
 
 /**
  * Unsubscribe listener from notification event name. if no listener there are remove all listeners by given `notif` name
+ *
+ * @param notificationName
+ * The name of notification for unsubscribe
+ *
+ * @param sub
+ * optional param for function that need to unsubscribe, if it's null there are going to unsubscribe all listeners for given notifName
  */
 inline fun <reified T : Any> IDispatcher.unsubscribe(notificationName: String, noinline sub: Subscriber<T>? = null) {
     (sub as? Subscriber<Any>)?.let { subscriber ->
@@ -129,12 +150,20 @@ inline fun <reified T : Any> IKDispatcher.subscribe(notif: String, noinline sub:
 /**
  * Subscribe a list of notifications to a single callback function
  */
-inline fun <reified T : Any> IKDispatcher.subscribeList(notifes:List<String>, priority: Int? = null, noinline sub: Subscriber<T>) {
-    notifes.forEach { notif->
+inline fun <reified T : Any> IKDispatcher.subscribeList(notifes: List<String>, priority: Int? = null, noinline sub: Subscriber<T>) {
+    notifes.forEach { notif ->
         if (!hasSubscribers(notif)) KDispatcher.subscribe(notif, sub, priority)
     }
 }
 
+/**
+ * Subscribe a list of notifications to a single callback function
+ */
+inline fun <reified T : Any> IKDispatcher.subscribeList(notifes: List<String>, noinline sub: Subscriber<T>) {
+    notifes.forEach { notif ->
+        if (!hasSubscribers(notif)) KDispatcher.subscribe(notif, sub, null)
+    }
+}
 
 /**
  * Check if given event name has any handlers
@@ -158,6 +187,15 @@ fun IKDispatcher.unsubscribe(notif: String, sub: Subscriber<Any>? = null) {
  */
 fun IKDispatcher.unsubscribeAll(notif: String) {
     KDispatcher.unsubscribeAll(notif)
+}
+
+/**
+ * Unsubscribe a list of notifications
+ */
+fun IKDispatcher.unsubscribeList(notifes: List<String>) {
+    notifes.forEach { notif ->
+        if (!hasSubscribers(notif)) unsubscribe(notif)
+    }
 }
 
 /**
