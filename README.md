@@ -13,9 +13,9 @@ val priority = 1
 KDispatcher.subscribe(EVENT_CALL_ONE, eventListener, priority)
 ```
 where:
-- EVENT_CALL_ONE - simple event type :String
-- eventListener - function listener for event
-- priority - the priority to sort calling functions
+* EVENT_CALL_ONE - simple event type :String
+* eventListener - function listener for event
+* priority - the priority to sort calling functions
 
 
 ```kotlin
@@ -97,12 +97,12 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
 ```
 
 Gradle: 
-```
+```kotlin
 implementation 'com.rasalexman.kdispatcher:kdispatcher:x.y.z'
 ```
 
 Maven:
-```
+```kotlin
 <dependency>
   <groupId>com.rasalexman.kdispatcher</groupId>
   <artifactId>kdispatcher</artifactId>
