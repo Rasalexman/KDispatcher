@@ -135,34 +135,53 @@ interface IKDispatcher
 /**
  * Subscribe an notification with listener function like (T, String) -> Unit,
  * where T - generic type data, String - event name
+ *
+ * @param notif
+ * Notification name
+ *
+ * @param sub
+ * Callback function as lambda (Notification<T>) -> Unit
+ *
+ * @param priority
+ * The priority of calling callback function
  */
-inline fun <reified T : Any> IKDispatcher.subscribe(notif: String, noinline sub: Subscriber<T>, priority: Int? = null) {
+inline fun <reified T : Any> IKDispatcher.subscribe(notif: String, noinline sub: Subscriber<T>, priority: Int? = null): IKDispatcher {
     KDispatcher.subscribe(notif, sub, priority)
+    return this
 }
 
 /**
  * Subscribe an notification with listener function like (T, String) -> Unit without priority
+ *
+ * @param notif
+ * Notification name
+ *
+ * @param sub
+ * Callback function as lambda (Notification<T>) -> Unit
  */
-inline fun <reified T : Any> IKDispatcher.subscribe(notif: String, noinline sub: Subscriber<T>) {
+inline fun <reified T : Any> IKDispatcher.subscribe(notif: String, noinline sub: Subscriber<T>): IKDispatcher {
     KDispatcher.subscribe(notif, sub, null)
+    return this
 }
 
 /**
  * Subscribe a list of notifications to a single callback function
  */
-inline fun <reified T : Any> IKDispatcher.subscribeList(notifes: List<String>, priority: Int? = null, noinline sub: Subscriber<T>) {
+inline fun <reified T : Any> IKDispatcher.subscribeList(notifes: List<String>, noinline sub: Subscriber<T>, priority: Int? = null): IKDispatcher {
     notifes.forEach { notif ->
         if (!hasSubscribers(notif)) KDispatcher.subscribe(notif, sub, priority)
     }
+    return this
 }
 
 /**
  * Subscribe a list of notifications to a single callback function
  */
-inline fun <reified T : Any> IKDispatcher.subscribeList(notifes: List<String>, noinline sub: Subscriber<T>) {
+inline fun <reified T : Any> IKDispatcher.subscribeList(notifes: List<String>, noinline sub: Subscriber<T>): IKDispatcher {
     notifes.forEach { notif ->
         if (!hasSubscribers(notif)) KDispatcher.subscribe(notif, sub, null)
     }
+    return this
 }
 
 /**

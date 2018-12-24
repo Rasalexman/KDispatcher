@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
     }
 
     private fun scopeOperation(test:MyTest) {
-        subscribe(EVENT_CALL_ONE, eventListenerOne, 3)
-        subscribe(EVENT_CALL_ONE, eventListenerTwo, 2)
+        subscribe(EVENT_CALL_ONE, eventListenerOne, 3).
+        subscribe(EVENT_CALL_ONE, eventListenerTwo, 2).
         subscribe(EVENT_CALL_ONE, eventListenerFour, 1)
 
         subscribe(EVENT_CALL_TWO, eventListenerThree, 2)
