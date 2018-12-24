@@ -14,7 +14,7 @@ val priority = 1
 KDispatcher.subscribe(EVENT_CALL_ONE, eventListener, priority)
 ```
 where:
-* EVENT_CALL_ONE - simple event type :String
+* EVENT_CALL_ONE - simple event type
 * eventListener - function listener for event
 * priority - the priority to sort calling functions
 
@@ -112,9 +112,9 @@ Maven:
 </dependency>
 ```
 
-- ThreadSafe
-- Simple
-- Usefull
+* ThreadSafe
+* Simple
+* Usefull
 
 License
 ----
