@@ -1,5 +1,5 @@
 # KDispatcher is a Kotlin EventDispatcher
-[ ![Download](https://api.bintray.com/packages/sphc/KDispatcher/kdispatcher/images/download.svg) ](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion)
+[ ![Kotlin 1.2.71](https://img.shields.io/badge/Kotlin-1.2.71-blue.svg)](http://kotlinlang.org)[ ![Download](https://api.bintray.com/packages/sphc/KDispatcher/kdispatcher/images/download.svg) ](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion)
 
 This is light-weight event dispatcher based on KOTLIN
 * `priority: Int? = null` to subscribe function for sorting
