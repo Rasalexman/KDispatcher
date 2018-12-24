@@ -1,4 +1,7 @@
 # KDispatcher is a Kotlin EventDispatcher
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f61b6230a3da404580250008f2e966b2)](https://app.codacy.com/app/Rasalexman/KDispatcher?utm_source=github.com&utm_medium=referral&utm_content=Rasalexman/KDispatcher&utm_campaign=Badge_Grade_Dashboard)
+
 [ ![Kotlin 1.2.71](https://img.shields.io/badge/Kotlin-1.2.71-blue.svg)](http://kotlinlang.org)[ ![Download](https://api.bintray.com/packages/sphc/KDispatcher/kdispatcher/images/download.svg) ](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion)
 
 This is light-weight event dispatcher based on KOTLIN
@@ -13,9 +16,9 @@ val priority = 1
 KDispatcher.subscribe(EVENT_CALL_ONE, eventListener, priority)
 ```
 where:
-- EVENT_CALL_ONE - simple event type :String
-- eventListener - function listener for event
-- priority - the priority to sort calling functions
+* EVENT_CALL_ONE - simple event type :String
+* eventListener - function listener for event
+* priority - the priority to sort calling functions
 
 
 ```kotlin
@@ -97,12 +100,12 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
 ```
 
 Gradle: 
-```
+```kotlin
 implementation 'com.rasalexman.kdispatcher:kdispatcher:x.y.z'
 ```
 
 Maven:
-```
+```kotlin
 <dependency>
   <groupId>com.rasalexman.kdispatcher</groupId>
   <artifactId>kdispatcher</artifactId>
