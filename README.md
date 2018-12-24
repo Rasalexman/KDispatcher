@@ -18,7 +18,6 @@ where:
 * eventListener - function listener for event 
 * priority - the priority to sort calling functions 
 
-
 ```kotlin
 /**
 * notif:Notification<T:Any> - event holder object that store
@@ -116,7 +115,7 @@ Maven:
 * Simple
 * Usefull
 
-License
+# License
 ----
 
 MIT License
