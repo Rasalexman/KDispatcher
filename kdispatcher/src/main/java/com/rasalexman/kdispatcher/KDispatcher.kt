@@ -125,7 +125,7 @@ fun IDispatcher.call(notif: String, data: Any? = null) {
 /**
  * Check if given event name has any handlers
  */
-fun IDispatcher.hasSubscribers(notif: String): Boolean = subscribers[notif] != null
+fun IDispatcher.hasSubscribers(notif: String): Boolean = subscribers[notif]?.isNotEmpty() == true
 
 /**
  * Helper interface
