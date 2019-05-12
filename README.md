@@ -120,7 +120,7 @@ Maven:
 
 MIT License
 
-Copyright (c) 2018 Aleksandr Minkin (sphc@yandex.ru)
+Copyright (c) 2019 Alexandr Minkin (sphc@yandex.ru)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
