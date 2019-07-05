@@ -1,6 +1,6 @@
 # KDispatcher is a Kotlin EventDispatcher
 
-[![Kotlin 1.3.21](https://img.shields.io/badge/Kotlin-1.3.21-blue.svg)](http://kotlinlang.org)  [![Download](https://api.bintray.com/packages/sphc/KDispatcher/kdispatcher/images/download.svg)](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f61b6230a3da404580250008f2e966b2)](https://app.codacy.com/app/Rasalexman/KDispatcher?utm_source=github.com&utm_medium=referral&utm_content=Rasalexman/KDispatcher&utm_campaign=Badge_Grade_Dashboard)
+[![Kotlin 1.3.41](https://img.shields.io/badge/Kotlin-1.3.41-blue.svg)](http://kotlinlang.org)  [![Download](https://api.bintray.com/packages/sphc/KDispatcher/kdispatcher/images/download.svg)](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f61b6230a3da404580250008f2e966b2)](https://app.codacy.com/app/Rasalexman/KDispatcher?utm_source=github.com&utm_medium=referral&utm_content=Rasalexman/KDispatcher&utm_campaign=Badge_Grade_Dashboard)
 
 This is light-weight event dispatcher based on KOTLIN
 * `priority: Int? = null` to subscribe function for sorting
