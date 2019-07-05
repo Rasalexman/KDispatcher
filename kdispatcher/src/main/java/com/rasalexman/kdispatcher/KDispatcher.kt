@@ -15,8 +15,6 @@
 
 package com.rasalexman.kdispatcher
 
-import android.util.ArrayMap
-
 /**
  * Created by alexander at 17.03.2018.
  */
@@ -32,16 +30,16 @@ data class Notification<T : Any?>(var data: T? = null, var eventName: String)
  * Created by a.minkin on 25.10.2017.
  */
 object KDispatcher : IDispatcher {
-    override val subscribers = ArrayMap<String, ArrayList<Subscriber<Any>>>()
-    override val priorityListeners = ArrayMap<Subscriber<Any>, Int?>()
+    override val subscribers = mutableMapOf<String, MutableList<Subscriber<Any>>>()
+    override val priorityListeners = mutableMapOf<Subscriber<Any>, Int?>()
 }
 
 /**
  * Main KDispatcher interface
  */
 interface IDispatcher {
-    val subscribers: ArrayMap<String, ArrayList<Subscriber<Any>>>
-    val priorityListeners: ArrayMap<Subscriber<Any>, Int?>
+    val subscribers: MutableMap<String, MutableList<Subscriber<Any>>>
+    val priorityListeners: MutableMap<Subscriber<Any>, Int?>
 }
 
 /**
