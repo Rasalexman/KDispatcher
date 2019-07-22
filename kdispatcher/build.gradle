@@ -6,13 +6,13 @@ apply plugin: 'org.jetbrains.dokka-android'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 10001
-        versionName "1.0.1"
+        targetSdkVersion 29
+        versionCode kdispatcherCode
+        versionName kdispatcherVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
