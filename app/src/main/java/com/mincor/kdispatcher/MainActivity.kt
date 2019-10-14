@@ -30,10 +30,18 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
     var buttonTwoId = 103
     var buttonThreeId = 104
 
+    fun callback(not: Notification<String>) {
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        subscribe<String>("Event") {
+            println("Event ${it.data}")
+        }
 
+        "Event" callWith "Hello"
 
         relativeLayout {
             lparams(matchParent, matchParent)
@@ -115,12 +123,12 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
     }
 
     private fun scopeOperation(test:MyTest) {
-        subscribe<Any>(EVENT_CALL_ONE, eventListenerOne, 3).
-        subscribe(EVENT_CALL_ONE, eventListenerTwo, 2).
-        subscribe(EVENT_CALL_ONE, eventListenerFour, 1)
+        subscribe(EVENT_CALL_ONE, 3, eventListenerOne)
+        subscribe(EVENT_CALL_ONE, 2, eventListenerTwo)
+        subscribe(EVENT_CALL_ONE, 1, eventListenerFour)
 
-        subscribe(EVENT_CALL_TWO, eventListenerThree, 2)
-        subscribe(EVENT_CALL_TWO, test::eventFromObjectHandler, 1)
+        subscribe(EVENT_CALL_TWO, 2, eventListenerThree)
+        subscribe(EVENT_CALL_TWO, 1, test::eventFromObjectHandler)
 
         /**
          * But you can simple use inner lambda function to handler notification.
