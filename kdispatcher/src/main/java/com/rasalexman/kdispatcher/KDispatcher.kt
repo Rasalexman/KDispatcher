@@ -13,6 +13,8 @@
 // THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+@file:Suppress("UNCHECKED_CAST")
+
 package com.rasalexman.kdispatcher
 
 /**
@@ -23,14 +25,25 @@ typealias Subscriber<T> = (Notification<T>) -> Unit
 /**
  * Created by alexander at 19.07.2018
  * Simple data handler class
+ *
+ * @param data - any data to send
+ * @param eventName - Name of notification
  */
 data class Notification<T : Any?>(var data: T? = null, var eventName: String)
 
 /**
  * Created by a.minkin on 25.10.2017.
+ * Main Notifications storage
  */
 object KDispatcher : IDispatcher {
+    /**
+     * Map of notification name and callback listener [Subscriber]
+     */
     override val subscribers = mutableMapOf<String, MutableList<Subscriber<Any>>>()
+
+    /**
+     * Priority holder storage
+     */
     override val priorityListeners = mutableMapOf<Subscriber<Any>, Int?>()
 }
 
@@ -38,7 +51,14 @@ object KDispatcher : IDispatcher {
  * Main KDispatcher interface
  */
 interface IDispatcher {
+    /**
+     * Map of notification name and callback listener [Subscriber]
+     */
     val subscribers: MutableMap<String, MutableList<Subscriber<Any>>>
+
+    /**
+     * Priority holder storage
+     */
     val priorityListeners: MutableMap<Subscriber<Any>, Int?>
 }
 
@@ -54,11 +74,11 @@ interface IDispatcher {
  * @param priority
  * Call priority of event handler
  */
-inline fun <reified T : Any> IDispatcher.subscribe(notificationName: String, noinline sub: Subscriber<T>, priority: Int? = null) {
-    val ls = subscribers.getOrPut(notificationName) { ArrayList() }
-    if (ls.indexOf(sub as Subscriber<Any>) < 0) {
+inline fun <reified T : Any> IDispatcher.subscribe(notificationName: String, priority: Int? = null, noinline sub: Subscriber<T>) {
+    val ls = subscribers.getOrPut(notificationName) { mutableListOf() }
+    if (ls.indexOf(sub as Subscriber<*>) < 0) {
         ls.add(sub)
-        priority?.let {
+        priority?.takeIf { it > 0 }?.let {
             priorityListeners[sub] = priority
             ls.sortBy { subscriber -> priorityListeners.getOrPut(subscriber) { priority } }
         }
@@ -122,6 +142,8 @@ fun IDispatcher.call(notif: String, data: Any? = null) {
 
 /**
  * Check if given event name has any handlers
+ *
+ * @param notif - notification name to check
  */
 fun IDispatcher.hasSubscribers(notif: String): Boolean = subscribers[notif]?.isNotEmpty() == true
 
@@ -143,41 +165,21 @@ interface IKDispatcher
  * @param priority
  * The priority of calling callback function
  */
-inline fun <reified T : Any> IKDispatcher.subscribe(notif: String, noinline sub: Subscriber<T>, priority: Int? = null): IKDispatcher {
-    KDispatcher.subscribe(notif, sub, priority)
-    return this
-}
-
-/**
- * Subscribe an notification with listener function like (T, String) -> Unit without priority
- *
- * @param notif
- * Notification name
- *
- * @param sub
- * Callback function as lambda (Notification<T>) -> Unit
- */
-inline fun <reified T : Any> IKDispatcher.subscribe(notif: String, noinline sub: Subscriber<T>): IKDispatcher {
-    KDispatcher.subscribe(notif, sub, null)
+inline fun <reified T : Any> IKDispatcher.subscribe(notif: String, priority: Int? = null, noinline sub: Subscriber<T>): IKDispatcher {
+    KDispatcher.subscribe(notif, priority, sub)
     return this
 }
 
 /**
  * Subscribe a list of notifications to a single callback function
+ *
+ * @param notifs - list of notification to subscribe
+ * @param priority - priority of subscribing
+ * @param sub - callback listener like [Subscriber]
  */
-inline fun <reified T : Any> IKDispatcher.subscribeList(notifes: List<String>, noinline sub: Subscriber<T>, priority: Int? = null): IKDispatcher {
-    notifes.forEach { notif ->
-        if (!hasSubscribers(notif)) KDispatcher.subscribe(notif, sub, priority)
-    }
-    return this
-}
-
-/**
- * Subscribe a list of notifications to a single callback function
- */
-inline fun <reified T : Any> IKDispatcher.subscribeList(notifes: List<String>, noinline sub: Subscriber<T>): IKDispatcher {
-    notifes.forEach { notif ->
-        if (!hasSubscribers(notif)) KDispatcher.subscribe(notif, sub, null)
+inline fun <reified T : Any> IKDispatcher.subscribeList(notifs: List<String>, priority: Int? = null, noinline sub: Subscriber<T>): IKDispatcher {
+    notifs.forEach { notif ->
+        if (!hasSubscribers(notif)) KDispatcher.subscribe(notif, priority, sub)
     }
     return this
 }
@@ -185,8 +187,7 @@ inline fun <reified T : Any> IKDispatcher.subscribeList(notifes: List<String>, n
 /**
  * Check if given event name has any handlers
  *
- * @param notif
- * This is a notification name to check handlers
+ * @param notif - This is a notification name to check handlers
  */
 fun IKDispatcher.hasSubscribers(notif: String): Boolean {
     return KDispatcher.hasSubscribers(notif)
@@ -194,6 +195,9 @@ fun IKDispatcher.hasSubscribers(notif: String): Boolean {
 
 /**
  * Unsubscribe listener from notification, remove all listeners by given `notif` name if no listener
+ *
+ * @param notif - notification name to unsubscribe
+ * @param sub - callback listener [Subscriber]
  */
 fun IKDispatcher.unsubscribe(notif: String, sub: Subscriber<Any>? = null) {
     KDispatcher.unsubscribe(notif, sub)
@@ -201,6 +205,8 @@ fun IKDispatcher.unsubscribe(notif: String, sub: Subscriber<Any>? = null) {
 
 /**
  * Unsubscribe all listeners by notification name
+ *
+ * @param notif - notification name to unsubscribe all listeners
  */
 fun IKDispatcher.unsubscribeAll(notif: String) {
     KDispatcher.unsubscribeAll(notif)
@@ -208,16 +214,29 @@ fun IKDispatcher.unsubscribeAll(notif: String) {
 
 /**
  * Unsubscribe a list of notifications
+ *
+ * @param notifs - list of notifications names to unsubscribe
  */
-fun IKDispatcher.unsubscribeList(notifes: List<String>) {
-    notifes.forEach { notif ->
+fun IKDispatcher.unsubscribeList(notifs: List<String>) {
+    notifs.forEach { notif ->
         if (!hasSubscribers(notif)) unsubscribe(notif)
     }
 }
 
 /**
  * Call notification listeners by given `notif` name and data
+ *
+ * @param notif - notification name
+ * @param data - any data to send
  */
 fun IKDispatcher.call(notif: String, data: Any? = null) {
     KDispatcher.call(notif, data)
+}
+
+/**
+ * Call helper function for pass data into notification [Subscriber]
+ * @param data - any data to send
+ */
+infix fun <T : Any> String.callWith(data: T) {
+    KDispatcher.call(this, data)
 }

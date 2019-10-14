@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jetbrains.anko:design-base:0.10.8@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/f03d43d7a6744d1d703f4b23bb7c00da/jetified-design-base-0.10.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/f03d43d7a6744d1d703f4b23bb7c00da/jetified-design-base-0.10.8/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.anko/design-base/0.10.8/244a6b49aa9531450dafaada85aeabdbd7ead6a0/design-base-0.10.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
