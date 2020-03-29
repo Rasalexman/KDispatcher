@@ -17,10 +17,22 @@
 
 package com.rasalexman.kdispatcher
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
+import java.lang.IllegalStateException
+import kotlin.coroutines.CoroutineContext
+
 /**
  * Created by alexander at 17.03.2018.
  */
 typealias Subscriber<T> = (Notification<T>) -> Unit
+
+typealias Handler<T> = (T) -> Unit
 
 /**
  * Created by alexander at 19.07.2018
@@ -36,21 +48,31 @@ data class Notification<T : Any?>(var data: T? = null, var eventName: String)
  * Main Notifications storage
  */
 object KDispatcher : IDispatcher {
+
+    private val supervisorJob = SupervisorJob()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Default + supervisorJob
+
     /**
      * Map of notification name and callback listener [Subscriber]
      */
-    override val subscribers = mutableMapOf<String, MutableList<Subscriber<Any>>>()
+    override val subscribers by lazyOf(mutableMapOf<String, MutableList<Subscriber<Any>>>())
 
     /**
      * Priority holder storage
      */
-    override val priorityListeners = mutableMapOf<Subscriber<Any>, Int?>()
+    override val priorityListeners by lazyOf(mutableMapOf<Subscriber<Any>, Int?>())
+
+
+    override val flowSet: MutableMap<String, Pair<Flow<Any>, Handler<Any>>> by lazyOf(mutableMapOf())
 }
 
 /**
  * Main KDispatcher interface
  */
-interface IDispatcher {
+
+interface IDispatcher : CoroutineScope {
     /**
      * Map of notification name and callback listener [Subscriber]
      */
@@ -60,7 +82,20 @@ interface IDispatcher {
      * Priority holder storage
      */
     val priorityListeners: MutableMap<Subscriber<Any>, Int?>
+
+    val flowSet: MutableMap<String, Pair<Flow<Any>, Handler<Any>>>
 }
+
+/*inline fun <reified T : Any> IDispatcher.subscribeFlow(notificationName: String, noinline sub: Handler<T>) {
+    flowSet.getOrPut(notificationName) { flow<Any> { emit() } to (sub as Handler<Any>)  }
+}
+
+inline fun <reified T : Any> IDispatcher.callFlow(notificationName: String) {
+    val (flow, sub) = flowSet.getOrPut(notificationName) { throw IllegalStateException() }
+    launch {
+        //flow.
+    }
+}*/
 
 /**
  * Add event handler to given notification name
@@ -151,6 +186,8 @@ fun IDispatcher.hasSubscribers(notif: String): Boolean = subscribers[notif]?.isN
  * Helper interface
  */
 interface IKDispatcher
+
+
 
 /**
  * Subscribe an notification with listener function like (T, String) -> Unit,
