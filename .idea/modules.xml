@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KDispatcher.iml" filepath="$PROJECT_DIR$/KDispatcher.iml" group="KDispatcher" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KDispatcher_buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/KDispatcher_buildSrc.iml" group="KDispatcher/KDispatcher_buildSrc" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="KDispatcher/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kdispatcher/kdispatcher.iml" filepath="$PROJECT_DIR$/.idea/modules/kdispatcher/kdispatcher.iml" group="KDispatcher/kdispatcher" />
     </modules>
