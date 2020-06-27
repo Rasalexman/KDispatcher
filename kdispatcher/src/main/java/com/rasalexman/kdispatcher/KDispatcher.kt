@@ -57,15 +57,17 @@ object KDispatcher : IDispatcher {
     /**
      * Map of notification name and callback listener [Subscriber]
      */
-    override val subscribers by lazyOf(mutableMapOf<String, MutableList<Subscriber<Any>>>())
+    override val subscribers by lazy {
+        mutableMapOf<String, MutableList<Subscriber<Any>>>()
+    }
 
     /**
      * Priority holder storage
      */
-    override val priorityListeners by lazyOf(mutableMapOf<Subscriber<Any>, Int?>())
+    override val priorityListeners by lazy { mutableMapOf<Subscriber<Any>, Int?>() }
 
 
-    override val flowSet: MutableMap<String, Pair<Flow<Any>, Handler<Any>>> by lazyOf(mutableMapOf())
+    override val flowSet: MutableMap<String, Pair<Flow<Any>, Handler<Any>>> by lazy { mutableMapOf<String, Pair<Flow<Any>, Handler<Any>>>()}
 }
 
 /**
@@ -87,13 +89,13 @@ interface IDispatcher : CoroutineScope {
 }
 
 /*inline fun <reified T : Any> IDispatcher.subscribeFlow(notificationName: String, noinline sub: Handler<T>) {
-    flowSet.getOrPut(notificationName) { flow<Any> { emit() } to (sub as Handler<Any>)  }
+    flowSet.getOrPut(notificationName) { flow<Any> {  } to (sub as Handler<Any>)  }
 }
 
-inline fun <reified T : Any> IDispatcher.callFlow(notificationName: String) {
+inline fun <reified T : Any> IDispatcher.callFlow(notificationName: String, data: Any) {
     val (flow, sub) = flowSet.getOrPut(notificationName) { throw IllegalStateException() }
     launch {
-        //flow.
+        flow
     }
 }*/
 
