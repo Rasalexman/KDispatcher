@@ -38,7 +38,13 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
         super.onCreate(savedInstanceState)
 
         subscribe<String>("Event") {
-            println("Event ${it.data}")
+            println("--------> Event ${it.data}")
+
+            subscribe<String>("NewEvent") { data ->
+                println("--------> NewEvent ${data.data}")
+            }
+
+            "NewEvent" callWith "Hello NewEvent"
         }
 
         "Event" callWith "Hello"
@@ -54,6 +60,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
                 background = roundedBg(Color.WHITE, 24f, true)
             }.lparams(matchParent) {
                 margin = dip(24)
+                    padding = dip(8)
             }
 
             button("CALL EVENT ONE") {
@@ -70,6 +77,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
                 setPadding(dip(16), 0, dip(16), 0)
                 centerHorizontally()
                 topMargin = dip(16)
+                padding = dip(8)
             }
 
             button("CALL EVENT TWO") {
@@ -86,6 +94,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
                 setPadding(dip(16), 0, dip(16), 0)
                 centerHorizontally()
                 topMargin = dip(16)
+                padding = dip(8)
             }
 
             button("CALL EVENT THREE") {
@@ -102,6 +111,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
                 setPadding(dip(16), 0, dip(16), 0)
                 centerHorizontally()
                 topMargin = dip(16)
+                padding = dip(8)
             }
         }
 
