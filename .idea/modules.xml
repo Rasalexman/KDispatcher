@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KDispatcher.iml" filepath="$PROJECT_DIR$/KDispatcher.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KDispatcher.iml" filepath="$PROJECT_DIR$/KDispatcher.iml" group="KDispatcher" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="KDispatcher/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kdispatcher/com.rasalexman.kdispatcher-kdispatcher.iml" filepath="$PROJECT_DIR$/.idea/modules/kdispatcher/com.rasalexman.kdispatcher-kdispatcher.iml" group="KDispatcher/kdispatcher" />
       <module fileurl="file://$PROJECT_DIR$/kdispatcher/kdispatcher.iml" filepath="$PROJECT_DIR$/kdispatcher/kdispatcher.iml" />
     </modules>
   </component>
