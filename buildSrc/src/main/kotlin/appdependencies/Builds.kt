@@ -8,12 +8,12 @@ object Builds {
     const val APP_ID = "com.mincor.kodiexample"
 
     object App {
-        const val VERSION_CODE = 10008
-        const val VERSION_NAME = "10008"
+        const val VERSION_CODE = 10009
+        const val VERSION_NAME = "10009"
     }
 
     object KDispatcher {
-        const val VERSION_NAME = "1.1.7"
+        const val VERSION_NAME = "1.1.8"
     }
 }
 
