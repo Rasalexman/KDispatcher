@@ -1,6 +1,6 @@
 # KDispatcher is a Kotlin EventDispatcher
 
-[![Kotlin 1.4.10](https://img.shields.io/badge/Kotlin-1.4.10-blue.svg)](http://kotlinlang.org)  [![Download](https://api.bintray.com/packages/sphc/KDispatcher/kdispatcher/images/download.svg)](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f61b6230a3da404580250008f2e966b2)](https://app.codacy.com/app/Rasalexman/KDispatcher?utm_source=github.com&utm_medium=referral&utm_content=Rasalexman/KDispatcher&utm_campaign=Badge_Grade_Dashboard) [![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
+[![Kotlin 1.4.31](https://img.shields.io/badge/Kotlin-1.4.31-blue.svg)](http://kotlinlang.org)  [![Download](https://api.bintray.com/packages/sphc/KDispatcher/kdispatcher/images/download.svg)](https://bintray.com/sphc/KDispatcher/kdispatcher/_latestVersion) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f61b6230a3da404580250008f2e966b2)](https://app.codacy.com/app/Rasalexman/KDispatcher?utm_source=github.com&utm_medium=referral&utm_content=Rasalexman/KDispatcher&utm_campaign=Badge_Grade_Dashboard) [![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
 
 This is light-weight event dispatcher based on KOTLIN
 * `priority: Int? = null` to subscribe function for sorting

@@ -98,7 +98,8 @@ inline fun <reified T : Any> IDispatcher.subscribe(notificationName: String, pri
 inline fun <reified T : Any> IDispatcher.unsubscribe(notificationName: String, noinline sub: Subscriber<T>? = null) {
     (sub as? Subscriber<Any>)?.let { subscriber ->
         val localSubscribers = subscribers
-        priorityListeners.remove(subscriber)
+        val localPriorityListener = priorityListeners
+        localPriorityListener.remove(subscriber)
         val ls = localSubscribers[notificationName]
         ls?.let { listeners ->
             if (listeners.remove(subscriber)) {
@@ -133,13 +134,15 @@ fun IDispatcher.unsubscribeAll(notif: String) {
  * Notification data
  */
 fun IDispatcher.call(notif: String, data: Any? = null) {
-    val localSubscribers = subscribers
-    val ls = localSubscribers[notif]
-    val notification = Notification(data, notif)
-    ls?.forEach {
-        it(notification)
+    val localSubscribers = subscribers.toMap()
+    val ls = localSubscribers[notif]?.toList()
+    ls?.let {
+        val notification = Notification(data, notif)
+        it.forEach {
+            it(notification)
+        }
+        notification.data = null
     } ?: println("NO LISTENERS FOR EVENT '$notif'")
-    notification.data = null
 }
 
 /**
@@ -148,7 +151,7 @@ fun IDispatcher.call(notif: String, data: Any? = null) {
  * @param notif - notification name to check
  */
 fun IDispatcher.hasSubscribers(notif: String): Boolean {
-    val localSubscribers = subscribers
+    val localSubscribers = subscribers.toMap()
     return localSubscribers[notif]?.isNotEmpty() == true
 }
 

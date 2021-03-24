@@ -1,5 +1,6 @@
 package com.mincor.kdispatcher
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -12,9 +13,12 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class MainActivity : AppCompatActivity(), IKDispatcher {
 
-    private val EVENT_CALL_ONE: String = "EVENT_CALL_ONE"
-    private val EVENT_CALL_TWO: String = "EVENT_CALL_TWO"
-    private val EVENT_CALL_THREE = "LAMBDA_EVENT"
+    companion object {
+        private const val EVENT_CALL_ONE: String = "EVENT_CALL_ONE"
+        private const val EVENT_CALL_TWO: String = "EVENT_CALL_TWO"
+        private const val EVENT_CALL_THREE = "LAMBDA_EVENT"
+    }
+
 
     private val eventListenerOne = this::eventOneHandler
     private val eventListenerTwo = this::eventTwoHandler
@@ -42,6 +46,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
 
             subscribe<String>("NewEvent") { data ->
                 println("--------> NewEvent ${data.data}")
+                unsubscribe("Event")
             }
 
             "NewEvent" callWith "Hello NewEvent"
@@ -132,6 +137,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
         //call(EVENT_CALL_ONE, "THIRD CALL FROM KDISPATCHER")
     }
 
+    @SuppressLint("SetTextI18n")
     private fun scopeOperation(test:MyTest) {
         subscribe(EVENT_CALL_ONE, 3, eventListenerOne)
         subscribe(EVENT_CALL_ONE, 2, eventListenerTwo)
@@ -146,10 +152,10 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
          * `usubscribe(String)` you will delete all references ISubscriber-listener
          */
 
-        subscribe<Any>(EVENT_CALL_THREE) {
-            println("LAMBDA_EVENT HAS FIRED with event name ${it.data}")
+        subscribe<Any>(EVENT_CALL_THREE) { notification ->
+            println("LAMBDA_EVENT HAS FIRED with event name ${notification.data}")
             //unsubscribe(it.eventName)
-            eventNameTV.text = "${it.eventName} DATA = ${it.data}"
+            eventNameTV.text = "${notification.eventName} DATA = ${notification.data}"
         }
 
        // call(EVENT_CALL_THREE, "FIRST CALL CUSTOM LAMBDA EVENT")
@@ -172,6 +178,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
 
 
     ////------- EVENT HANDLERS ------////
+    @SuppressLint("SetTextI18n")
     fun eventOneHandler(notification:Notification<Any>) {
        println("eventOneHandler MY TEST IS COMING event = ${notification.data} AND data = ${notification.eventName}")
         eventNameTV.text = "${notification.eventName} DATA = ${notification.data}"
@@ -185,6 +192,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
         println("eventFourHandler MY TEST IS COMING event = ${notification.data} AND data = ${notification.eventName}")
     }
 
+    @SuppressLint("SetTextI18n")
     fun eventThreeHandler(notification:Notification<Any>) {
         println("eventThreeHandler INVOKED With EVENT ${notification.data} AND data = ${notification.eventName}")
         eventNameTV.text = "${notification.eventName} DATA = ${notification.data}"
