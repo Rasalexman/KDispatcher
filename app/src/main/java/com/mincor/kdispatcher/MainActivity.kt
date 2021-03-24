@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.rasalexman.kdispatcher.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), IKDispatcher {
 
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
     var buttonOneId = 102
     var buttonTwoId = 103
     var buttonThreeId = 104
+    var buttonMultiId = 105
 
     fun callback(not: Notification<String>) {
 
@@ -113,6 +115,25 @@ class MainActivity : AppCompatActivity(), IKDispatcher {
                 }
             }.lparams {
                 below(buttonTwoId)
+                setPadding(dip(16), 0, dip(16), 0)
+                centerHorizontally()
+                topMargin = dip(16)
+                padding = dip(8)
+            }
+
+            button("CALL MULTI EVENT") {
+                id = buttonMultiId
+                background = roundedBg(Color.LTGRAY)
+                textColor = Color.WHITE
+                gravity = Gravity.CENTER_HORIZONTAL
+
+                onClick {
+                    val random = Random.nextInt()
+                    val eventName = if(random%2 == 0) "notif_one" else "notif_two"
+                    call(eventName, "CALL MULTI EVENT with name $eventName")
+                }
+            }.lparams {
+                below(buttonThreeId)
                 setPadding(dip(16), 0, dip(16), 0)
                 centerHorizontally()
                 topMargin = dip(16)
