@@ -1,40 +1,18 @@
-apply plugin: 'java-library'
-apply plugin: 'maven-publish'
+import appdependencies.Builds
 
-apply from: 'keystore.gradle'
+apply plugin: 'java'
+apply plugin: 'maven'
 
-version = libVersion
-group = groupId
+//apply from: 'keystore.gradle'
 
-publishing {
-    publications {
-        // Creates a Maven publication called "mavenJava".
-        mavenJava(MavenPublication) {
-            artifactId artifactLibId
+group = 'com.rasalexman.kdispatcher' // package name of the project
+version = Builds.KDispatcher.VERSION_NAME
 
-            // Applies the component for the release build variant.
-            from components.kotlin
+sourceCompatibility = 1.8 // java 8
+targetCompatibility = 1.8
 
-            pom {
-                name = repoName
-                description = 'This is light-weight event dispatcher based on KOTLIN'
-                url = 'https://github.com/Rasalexman/KDispatcher'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = userId
-                        name = userName
-                        email = userEmail
-                    }
-                }
-            }
-        }
-    }
+repositories {
+    mavenCentral()
 }
 
 task sourcesJar(type: Jar) {
@@ -43,13 +21,43 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-/*task javadocJar(type: Jar, dependsOn: javadoc) {
+task javadocJar(type: Jar, dependsOn: javadoc) {
     archiveClassifier = 'javadoc'
     from javadoc.destinationDir
     // options.encoding = 'UTF-8'
 }
- */
+
 artifacts {
     archives javadocJar
     archives sourcesJar
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            packaging 'aar'
+            groupId 'com.rasalexman.kdispatcher' // package name of the project
+            artifactId 'kdispatcher'
+            version Builds.KDispatcher.VERSION_NAME
+            name 'kdispatcher' // pom.project.name must be same as bintray.pkg.name
+
+            description 'This is light-weight event dispatcher based on KOTLIN'
+            url 'https://github.com/Rasalexman/KDispatcher'
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+            developers {
+                developer {
+                    id = 'Rasalexman'
+                    name = 'Alexandr Minkin'
+                    email = 'sphc@yandex.ru'
+                }
+            }
+        }
+    }
 }

@@ -6,6 +6,7 @@ plugins {
     id("java-library")
     id("kotlin")
     id("org.jetbrains.dokka")
+    id("maven-publish")
 }
 
 // Declare the task that will monitor all configurations.
@@ -40,7 +41,7 @@ dependencies {
     implementation(kotlin("stdlib", Versions.kotlin))
 }
 
-tasks {
+/*tasks {
     val dokkaOutputDir = "$buildDir/dokka"
 
     dokkaHtml {
@@ -56,11 +57,8 @@ tasks {
         archiveClassifier.set("javadoc")
         from(dokkaOutputDir)
     }
-}
+}*/
 
-repositories {
-    mavenCentral()
-}
 // comment this apply function if you fork this project
 apply {
     from("deploy.gradle")
