@@ -6,7 +6,6 @@ import resources.Resources.codeDirs
 plugins {
     id("java-library")
     id("kotlin")
-    id("com.jfrog.bintray")
     id("org.jetbrains.dokka")
     id("maven-publish")
 }
@@ -41,7 +40,7 @@ sourceSets {
 
 dependencies {
     implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
-    implementation(kotlin("stdlib-jdk8", Versions.kotlin))
+    implementation(kotlin("stdlib", Versions.kotlin))
 }
 
 

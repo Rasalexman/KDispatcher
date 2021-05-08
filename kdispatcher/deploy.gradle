@@ -1,26 +1,8 @@
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 apply from: 'keystore.gradle'//the file, containing the bintray API key
 version = libVersion
 group = groupId
-//take a look at https://github.com/bintray/gradle-bintray-plugin#buildgradle
-bintray {
-    user = userName // Your bintray User
-    key = bintray_key // Defined in keystore.gradle file
-    configurations = ['archives']
-    publish = true //[Default: false] Whether version should be auto published after an upload
-    override = false //[Default: false] Whether to override version artifacts already published
-    // Package configuration. The plugin will use the repo and name properties to check if the
-    // package already exists. In that case, there's no need to configure the other package
-    // properties (like userOrg, desc, etc).
-    pkg {
-        repo = repoName //bintray repo
-        name = packageName //bintray package
-        version {
-            name = libVersion
-        }
-    }
-}
+
 install {
     repositories.mavenInstaller {
         pom.project {

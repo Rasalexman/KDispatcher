@@ -5,7 +5,7 @@ object Libs {
         const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
         const val anko = "org.jetbrains.anko:anko:${Versions.anko_version}"
         const val ankoDesign = "org.jetbrains.anko:anko-design:${Versions.anko_version}"
-        const val kdispatcher = "com.rasalexman.kdispatcher:kdispatcher:1.1.6"
+        const val kdispatcher = "com.rasalexman.kdispatcher:kdispatcher:1.1.9"
     }
 
     object Tests {

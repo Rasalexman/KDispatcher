@@ -17,7 +17,6 @@ buildscript {
         classpath(appdependencies.ClassPath.kotlingradle)
 
         classpath(appdependencies.ClassPath.google)
-        classpath(appdependencies.ClassPath.bintrayplugin)
         classpath(appdependencies.ClassPath.mavenplugin)
         classpath(appdependencies.ClassPath.dokkaplugin)
         // NOTE: Do not place your application dependencies here; they belong
