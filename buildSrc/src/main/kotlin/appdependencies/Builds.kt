@@ -13,7 +13,7 @@ object Builds {
     }
 
     object KDispatcher {
-        const val VERSION_NAME = "1.1.91"
+        const val VERSION_NAME = "1.1.92"
     }
 }
 
