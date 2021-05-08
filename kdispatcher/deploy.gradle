@@ -1,16 +1,38 @@
-apply plugin: 'com.github.dcendents.android-maven'
-apply from: 'keystore.gradle'//the file, containing the bintray API key
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
+
+apply from: 'keystore.gradle'
+
 version = libVersion
 group = groupId
 
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            packaging 'aar'
-            groupId groupId
-            artifactId artifactId
-            version libVersion
-            name artifactId // pom.project.name must be same as bintray.pkg.name
+publishing {
+    publications {
+        // Creates a Maven publication called "mavenJava".
+        mavenJava(MavenPublication) {
+            artifactId artifactLibId
+
+            // Applies the component for the release build variant.
+            from components.kotlin
+
+            pom {
+                name = repoName
+                description = 'This is light-weight event dispatcher based on KOTLIN'
+                url = 'https://github.com/Rasalexman/KDispatcher'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = userId
+                        name = userName
+                        email = userEmail
+                    }
+                }
+            }
         }
     }
 }
@@ -20,42 +42,13 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.kotlin
     from sourceSets.main.allSource
 }
-/*
-//just copy paste the lines below
-if (project.hasProperty("kotlin")) { //Kotlin libraries
-    task sourcesJar(type: Jar) {
-        archiveClassifier = 'sources'
-        from sourceSets.main.kotlin
-        from sourceSets.main.allSource
-    }
 
-    *//*task javadoc(type: Javadoc, dependsOn: dokka) {
-
-    }*//*
-} else if (project.hasProperty("android")) {
-    task sourcesJar(type: Jar) {
-        archiveClassifier = 'sources'
-        from sourceSets.main.java.srcDirs
-    }
-
-    task javadoc(type: Javadoc) {
-        source = sourceSets.main.java.srcDirs
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    }
-} else { // Java libraries
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        archiveClassifier = 'sources'
-        from sourceSets.main.kotlin
-        from sourceSets.main.allSource
-    }
-}*/
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
+/*task javadocJar(type: Jar, dependsOn: javadoc) {
     archiveClassifier = 'javadoc'
     from javadoc.destinationDir
     // options.encoding = 'UTF-8'
 }
-
+ */
 artifacts {
     archives javadocJar
     archives sourcesJar

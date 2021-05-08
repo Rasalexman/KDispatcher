@@ -1,5 +1,4 @@
 import appdependencies.Versions
-import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import resources.Resources.codeDirs
 
@@ -7,7 +6,6 @@ plugins {
     id("java-library")
     id("kotlin")
     id("org.jetbrains.dokka")
-    id("maven-publish")
 }
 
 // Declare the task that will monitor all configurations.
@@ -39,15 +37,24 @@ sourceSets {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
     implementation(kotlin("stdlib", Versions.kotlin))
 }
 
-
 tasks {
-    val dokka by getting(DokkaTask::class) {
-        outputFormat = "html"
-        outputDirectory = "$buildDir/dokka"
+    val dokkaOutputDir = "$buildDir/dokka"
+
+    dokkaHtml {
+        outputDirectory.set(file(dokkaOutputDir))
+    }
+
+    val deleteDokkaOutputDir by registering(Delete::class) {
+        delete(dokkaOutputDir)
+    }
+
+    register<Jar>("javadocJar") {
+        dependsOn(deleteDokkaOutputDir, dokkaHtml)
+        archiveClassifier.set("javadoc")
+        from(dokkaOutputDir)
     }
 }
 
